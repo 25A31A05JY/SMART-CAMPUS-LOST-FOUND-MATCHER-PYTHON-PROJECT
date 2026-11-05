@@ -1,0 +1,179 @@
+
+import json
+import os
+from difflib import SequenceMatcher
+
+LOST_FILE = "lost_items.json"
+FOUND_FILE = "found_items.json"
+
+
+# Function to load records from JSON files
+def load_data(filename):
+    if not os.path.exists(filename):
+        return []
+
+    try:
+        with open(filename, "r") as file:
+            return json.load(file)
+    except (json.JSONDecodeError, OSError):
+        return []
+
+
+# Function to save records
+def save_data(filename, data):
+    with open(filename, "w") as file:
+        json.dump(data, file, indent=4)
+
+
+# Function to register an item
+def register_item(item_type):
+    print("\n--- Register", item_type, "Item ---")
+
+    name = input("Enter item name: ").strip()
+    description = input("Enter item description: ").strip()
+    location = input("Enter location: ").strip()
+    contact = input("Enter contact details: ").strip()
+
+    if not all([name, description, location, contact]):
+        print("All fields are required!")
+        return
+
+    item = {
+        "name": name,
+        "description": description,
+        "location": location,
+        "contact": contact
+    }
+
+    filename = LOST_FILE if item_type == "Lost" else FOUND_FILE
+
+    data = load_data(filename)
+    data.append(item)
+    save_data(filename, data)
+
+    print("\nItem registered successfully!")
+
+
+# Function to display records
+def view_items(filename, title):
+    data = load_data(filename)
+
+    print("\n---", title, "---")
+
+    if not data:
+        print("No records available.")
+        return
+
+    for index, item in enumerate(data, start=1):
+        print("\nItem Number:", index)
+        print("Name:", item["name"])
+        print("Description:", item["description"])
+        print("Location:", item["location"])
+        print("Contact:", item["contact"])
+
+
+# Function to calculate similarity
+def similarity(text1, text2):
+    return SequenceMatcher(
+        None,
+        text1.lower(),
+        text2.lower()
+    ).ratio()
+
+
+# Function to find matching items
+def find_matches():
+    lost_items = load_data(LOST_FILE)
+    found_items = load_data(FOUND_FILE)
+
+    print("\n--- Possible Matching Items ---")
+
+    if not lost_items or not found_items:
+        print("Not enough records to find matches.")
+        return
+
+    match_found = False
+
+    for lost in lost_items:
+        for found in found_items:
+
+            name_score = similarity(
+                lost["name"],
+                found["name"]
+            )
+
+            description_score = similarity(
+                lost["description"],
+                found["description"]
+            )
+
+            location_score = similarity(
+                lost["location"],
+                found["location"]
+            )
+
+            total_score = (
+                name_score * 0.5
+                + description_score * 0.3
+                + location_score * 0.2
+            )
+
+            if total_score >= 0.40:
+                match_found = True
+
+                print("\nPossible Match Found!")
+                print("Lost Item:", lost["name"])
+                print("Found Item:", found["name"])
+                print("Lost Location:", lost["location"])
+                print("Found Location:", found["location"])
+                print("Similarity:",
+                      round(total_score * 100, 2), "%")
+                print("Lost Contact:", lost["contact"])
+                print("Found Contact:", found["contact"])
+                print("-----------------------------")
+
+    if not match_found:
+        print("No possible matches found.")
+
+
+# Main menu
+def main():
+    while True:
+        print("\n================================")
+        print(" SMART CAMPUS LOST & FOUND")
+        print("================================")
+        print("1. Report Lost Item")
+        print("2. Report Found Item")
+        print("3. Find Matching Items")
+        print("4. View Lost Items")
+        print("5. View Found Items")
+        print("6. Exit")
+
+        choice = input("\nEnter your choice: ").strip()
+
+        if choice == "1":
+            register_item("Lost")
+
+        elif choice == "2":
+            register_item("Found")
+
+        elif choice == "3":
+            find_matches()
+
+        elif choice == "4":
+            view_items(LOST_FILE, "Lost Items")
+
+        elif choice == "5":
+            view_items(FOUND_FILE, "Found Items")
+
+        elif choice == "6":
+            print("\nThank you for using Smart Campus Lost & Found!")
+            break
+
+        else:
+            print("\nInvalid choice! Please try again.")
+
+
+# Program execution
+if __name__ == "__main__":
+    main()
