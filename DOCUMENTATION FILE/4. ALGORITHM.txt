@@ -1,0 +1,26 @@
+4. ALGORITHM
+Algorithm: Smart Campus Lost & Found Matcher
+1. START
+2. INITIALIZE the application.
+3. DISPLAY the main menu.
+4. INPUT the user's choice.
+5. IF choice = 1
+      INPUT lost item details.
+      STORE details in lost_items.json.
+6. ELSE IF choice = 2
+      INPUT found item details.
+      STORE details in found_items.json.
+7. ELSE IF choice = 3
+      READ lost and found records.
+      COMPARE item names and descriptions.
+      IDENTIFY possible matches.
+      DISPLAY matching results.
+8. ELSE IF choice = 4
+      DISPLAY all lost and found records.
+9. ELSE IF choice = 5
+      DISPLAY exit message.
+      STOP.
+10. ELSE
+      DISPLAY invalid choice message.
+11. RETURN to the main menu.
+12. STOP.

@@ -1,0 +1,6 @@
+1. INTRODUCTION
+The Smart Campus Lost & Found Matcher is a Python-based application designed to help students and faculty members report and recover lost belongings within a college campus. In educational institutions, students frequently lose personal items such as ID cards, books, water bottles, bags, and electronic devices. Finding these belongings can be difficult due to the absence of a centralized reporting system.
+
+This project provides a simple and organized platform where users can register lost and found items by entering details such as item name, description, and location. The application compares the submitted information and identifies possible matches using a basic string-matching technique.
+
+The system aims to reduce the time required to locate missing belongings while improving communication and convenience among students. It uses Python programming concepts such as functions, conditional statements, loops, file handling, and string operations

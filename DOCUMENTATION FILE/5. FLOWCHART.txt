@@ -1,0 +1,30 @@
+5. FLOWCHART
+TART
+               |
+       INITIALIZE SYSTEM
+               |
+        DISPLAY MENU
+               |
+       INPUT USER CHOICE
+               |
+        CHECK THE CHOICE
+               |
+    +----------+----------+
+    |          |          |
+  LOST       FOUND     MATCH ITEMS
+    |          |          |
+INPUT       INPUT      READ RECORDS
+DETAILS     DETAILS        |
+    |          |       COMPARE ITEMS
+ SAVE       SAVE           |
+ DATA       DATA       DISPLAY MATCHES
+    |          |          |
+    +----------+----------+
+               |
+        RETURN TO MENU
+               |
+         EXIT SELECTED?
+          /         \
+        NO           YES
+        |             |
+   DISPLAY MENU     STOP

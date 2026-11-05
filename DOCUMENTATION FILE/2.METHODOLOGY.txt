@@ -1,0 +1,11 @@
+2. METHODOLOGY
+The project follows a systematic approach to collect, store, process, and compare information about lost and found items.
+
+The methodology consists of the following stages:
+1. User Input: Collect item details such as name, description, and location from the user.
+2. Item Classification: Categorize the submitted information as either a lost item or a found item.
+3. Data Storage: Store the entered information in JSON files using Python file handling.
+4. Data Processing: Retrieve stored records whenever the user requests item matching.
+5. Description Comparison: Compare the names and descriptions of lost and found items using string-matching techniques.
+6. Match Identification: Display possible matching items based on the similarity of their descriptions.
+7. Result Display: Present the matching details to help users identify and recover their belongings.
